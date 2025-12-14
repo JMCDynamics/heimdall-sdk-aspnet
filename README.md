@@ -1,4 +1,4 @@
-# @heimdall-sdk/express
+# @heimdall-sdk/aspnetcore
 
 > **Requires Sentinel** — this middleware only works when a Sentinel instance is running. It sends request logs and metrics to Sentinel using a buffered, asynchronous mechanism.
 
