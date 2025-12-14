@@ -23,12 +23,11 @@ dotnet add package Heimdall.AspNetCore
 ## Usage
 
 ```csharp
-using Heimdall;
-
 var builder = WebApplication.CreateBuilder(args);
+
 var app = builder.Build();
 
-var heimdall = new Heimdall(
+var heimdall = new Heimdall.Connector(
     serviceName: "my-company-api",
     baseUrl: "http://localhost:8080", // Sentinel URL
     apiKey: "heim_XXXX",              // Generated in Sentinel
@@ -36,7 +35,7 @@ var heimdall = new Heimdall(
     flushSize: 50,                     // Optional (default: 50)
 );
 
-app.UseHeimdall(heimdall);
+app.Use(heimdall.Watcher());
 
 app.MapGet("/", () => Results.Json(new { message = "hello world" }));
 

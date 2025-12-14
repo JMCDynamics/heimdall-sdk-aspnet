@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
 
         <PackageId>Heimdall.AspNetCore</PackageId>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <Authors>mateusgcoelho</Authors>
         <Description>ASP.NET Core middleware for request monitoring and observability</Description>
         <PackageTags>aspnetcore;middleware;monitoring;logging</PackageTags>

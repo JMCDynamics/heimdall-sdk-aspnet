@@ -22,7 +22,7 @@ internal record RequestLog
     object? Body
 );
 
-public class Heimdall
+public class Connector
 {
     private string _serviceName;
     private string _baseUrl;
@@ -34,7 +34,7 @@ public class Heimdall
     private static List<RequestLog> _buffer = [];
     private static bool _isFlushing = false;
     
-    public Heimdall(string serviceName, string baseUrl, string apiKey, int flushIntervalMs = 5000, int flushSize = 50, bool developerMode = false)
+    public Connector(string serviceName, string baseUrl, string apiKey, int flushIntervalMs = 5000, int flushSize = 50, bool developerMode = false)
     {
         _serviceName = serviceName;
         _baseUrl = baseUrl + "/api";
