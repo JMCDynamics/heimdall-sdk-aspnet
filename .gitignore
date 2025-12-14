@@ -1,0 +1,125 @@
+# ================================
+# Build results
+# ================================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rtifacts/
+out/
+
+# ================================
+# .NET user-specific files
+# ================================
+*.rsuser
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ================================
+# Rider
+# ================================
+.idea/
+*.sln.iml
+
+# ================================
+# Visual Studio
+# ================================
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj.user
+*.pdb
+*.opendb
+*.VC.db
+
+# ================================
+# Visual Studio Code
+# ================================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ================================
+# NuGet
+# ================================
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.assets.json
+
+# ================================
+# Publish output
+# ================================
+publish/
+wwwroot/lib/
+
+# ================================
+# Test results
+# ================================
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# ================================
+# OS files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# Environment / secrets
+# ================================
+.env
+.env.*
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# ================================
+# Logs
+# ================================
+*.log
+
+# ================================
+# Docker
+# ================================
+docker-compose.override.yml
+.docker/
+**/Dockerfile.local
+
+# ================================
+# Coverage / Reports
+# ================================
+coverage/
+coverage.xml
+*.lcov
+*.html
+
+# ================================
+# Temporary files
+# ================================
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ================================
+# Others
+# ================================
+_ReSharper*/
+*.DotSettings.user
+.idea/
+bin/
+obj/
