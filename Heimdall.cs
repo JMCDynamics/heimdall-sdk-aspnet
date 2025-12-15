@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace Heimdall;
 
@@ -80,11 +81,20 @@ public class Connector
 
         var body = await ReadRequestBody(request);
 
+        var path = request.Path;
+        
+        var endpoint = context.GetEndpoint();
+        if (endpoint != null)
+        {
+            var routePattern = (endpoint as RouteEndpoint)?.RoutePattern.RawText;
+            path = routePattern ?? request.Path;
+        }
+
         var log = new RequestLog(
             ServiceName: _serviceName,
             Timestamp: DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
             Method: request.Method,
-            Url: $"{request.Scheme}://{request.Host}{request.Path}",
+            Url: $"{request.Scheme}://{request.Host}{path}",
             StatusCode: response.StatusCode,
             Duration: duration,
             Ip: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
