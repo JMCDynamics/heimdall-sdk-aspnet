@@ -31,10 +31,14 @@ public class Connector
     private int _flushSize;
     private bool _developerMode;
 
+    private int _maxBufferSize;
+    private int _failureCount = 0;
+    private const int MaxFailures = 5;
+
     private static List<RequestLog> _buffer = [];
     private static bool _isFlushing = false;
     
-    public Connector(string serviceName, string baseUrl, string apiKey, int flushIntervalMs = 5000, int flushSize = 50, bool developerMode = false)
+    public Connector(string serviceName, string baseUrl, string apiKey, int flushIntervalMs = 5000, int flushSize = 50, bool developerMode = false, int maxBufferSize = 1000)
     {
         _serviceName = serviceName;
         _baseUrl = baseUrl + "/api";
@@ -42,6 +46,7 @@ public class Connector
         _flushIntervalMs = flushIntervalMs;
         _flushSize = flushSize;
         _developerMode = developerMode;
+        _maxBufferSize = maxBufferSize;
         
         if (_developerMode)
         {
@@ -159,7 +164,18 @@ public class Connector
         }
         catch (Exception ex)
         {
-            _buffer.AddRange(logsToSend);
+            lock (_buffer)
+            {
+                var total = _buffer.Count + logsToSend.Length;
+                if (total > _maxBufferSize)
+                {
+                    var overflow = total - _maxBufferSize;
+                    _buffer.RemoveRange(0, overflow);
+                }
+
+                _buffer.AddRange(logsToSend);
+            }
+            
             Console.WriteLine($"failed to flush logs: {ex.Message}");
         }
         finally
