@@ -32,8 +32,6 @@ public class Connector
     private bool _developerMode;
 
     private int _maxBufferSize;
-    private int _failureCount = 0;
-    private const int MaxFailures = 5;
 
     private static List<RequestLog> _buffer = [];
     private static bool _isFlushing = false;
@@ -152,6 +150,17 @@ public class Connector
 
         var logsToSend = _buffer.ToArray();
         _buffer.Clear();
+        
+        if (logsToSend.Length == 0)
+        {
+            _isFlushing = false;
+            return;
+        }
+
+        if (_developerMode)
+        {
+            Console.WriteLine("Heimdall sending " + logsToSend.Length + " logs.");
+        }
 
         try
         {
