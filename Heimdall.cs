@@ -70,7 +70,16 @@ public class Connector
             
             await next();
 
-            _audit(context, stopwatch.Elapsed.TotalMilliseconds).Wait();
+            try
+            {
+                _audit(context, stopwatch.Elapsed.TotalMilliseconds).Wait();
+            } catch (Exception ex)
+            {
+                if (_developerMode)
+                {
+                    Console.WriteLine($"Heimdall audit failed: {ex.Message}");
+                }
+            }
         };  
     }
 
@@ -83,11 +92,17 @@ public class Connector
 
         var path = request.Path;
         
-        var endpoint = context.GetEndpoint();
-        if (endpoint != null)
+        try
         {
-            var routePattern = (endpoint as RouteEndpoint)?.RoutePattern.RawText;
-            path = routePattern ?? request.Path;
+            var endpoint = context.GetEndpoint();
+            if (endpoint != null)
+            {
+                var routePattern = (endpoint as RouteEndpoint)?.RoutePattern.RawText;
+                path = routePattern ?? request.Path;
+            }
+        } catch
+        {
+            // ignore
         }
 
         var log = new RequestLog(
